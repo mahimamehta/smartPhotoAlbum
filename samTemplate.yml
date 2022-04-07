@@ -14,7 +14,7 @@ Resources:
       CodeUri: ./
       Description: "Lambda function for searching photos"
       Timeout: 30
-      Role: "arn:aws:iam::418888549033:role/service-role/lex-role-gsxpeog8"
+      Role: "arn:aws:iam::497366965479:role/service-role/search-photos-role-026un0h8"
       Environment:
         Variables:
           REGION: us-east-1
@@ -39,7 +39,7 @@ Resources:
       CodeUri: ./
       Description: "Lambda function for indexing photos to ES"
       Timeout: 30
-      Role: "arn:aws:iam::418888549033:role/service-role/lex-role-gsxpeog8"
+      Role: "arn:aws:iam::497366965479:role/service-role/index-photos-role-19uvu9bz"
       Layers:
         - arn:aws:lambda:us-east-1:770693421928:layer:Klayers-p39-requests:2
       Events:

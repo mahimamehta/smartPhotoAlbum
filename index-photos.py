@@ -49,7 +49,7 @@ def lambda_handler(event, context):
         "createdTimestamp": timestamp,
         "labels": labels
     }
-    # print("---------")
+    print("---------")
     print(jsonObj)
     storeToES('photos', json.dumps(jsonObj))
     try:

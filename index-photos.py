@@ -30,7 +30,7 @@ def storeToES(index, json):
     headers = {'Content-Type': 'application/json'}
     r = requests.post(url, auth=("ES-Demo2", "ES-Demo2"),
                       data=json, headers=headers)
-    print(r.text)
+    # print(r.text)
 
 
 def lambda_handler(event, context):

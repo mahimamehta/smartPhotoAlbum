@@ -2,10 +2,6 @@ AWSTemplateFormatVersion: "2010-09-09"
 Transform: "AWS::Serverless-2016-10-31"
 Description: CD Demo Lambda
 Resources:
-  bucketphoto:
-    Type: AWS::S3::Bucket
-    Properties:
-      BucketName: bucketphoto
   searchphoto:
     Type: "AWS::Serverless::Function"
     Properties:
@@ -52,30 +48,3 @@ Resources:
       Environment:
         Variables:
           REGION: us-east-1
-  RootRole:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service:
-                - apigateway.amazonaws.com
-                - es.amazonaws.com
-                - lambda.amazonaws.com
-            Action:
-              - sts:AssumeRole
-      Path: "/"
-  RolePolicies:
-    Type: AWS::IAM::Policy
-    Properties:
-      PolicyName: root
-      PolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-          - Effect: Allow
-            Action: "*"
-            Resource: "*"
-      Roles:
-        - !Ref RootRole

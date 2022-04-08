@@ -1,0 +1,81 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: "AWS::Serverless-2016-10-31"
+Description: CD Demo Lambda
+Resources:
+  bucketphoto:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: bucketphoto
+  searchphoto:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Handler: search-photos.lambda_handler
+      Runtime: python3.9
+      CodeUri: ./
+      Description: "Lambda function for searching photos"
+      Timeout: 30
+      Role: "arn:aws:iam::497366965479:role/service-role/search-photos-role-026un0h8"
+      Environment:
+        Variables:
+          REGION: us-east-1
+      Layers:
+        - arn:aws:lambda:us-east-1:770693421928:layer:Klayers-p39-requests:2
+      Events:
+        getAZsAPI:
+          Type: Api
+          Properties:
+            Path: /search
+            Method: get
+        putAZsAPI:
+          Type: Api
+          Properties:
+            Path: /upload
+            Method: put
+  indexphotos:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Handler: index-photos.lambda_handler
+      Runtime: python3.9
+      CodeUri: ./
+      Description: "Lambda function for indexing photos to ES"
+      Timeout: 30
+      Role: "arn:aws:iam::497366965479:role/service-role/index-photos-role-19uvu9bz"
+      Layers:
+        - arn:aws:lambda:us-east-1:770693421928:layer:Klayers-p39-requests:2
+      Events:
+        S3Trigger:
+          Type: S3
+          Properties:
+            Bucket:
+              Ref: bucketphoto
+            Events: s3:ObjectCreated:Put
+      Environment:
+        Variables:
+          REGION: us-east-1
+  RootRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - apigateway.amazonaws.com
+                - es.amazonaws.com
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Path: "/"
+  RolePolicies:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: root
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action: "*"
+            Resource: "*"
+      Roles:
+        - !Ref RootRole

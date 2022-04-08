@@ -4,6 +4,7 @@ phases:
     commands:
       - aws cloudformation package --template-file samTemplate.yml --s3-bucket lambda-bucket-code-pipeline --output-template-file outputSamTemplate.yml
 artifacts:
+  type: zip
   files:
-    - mydir/samTemplate.yml
-    - mydir/outputSamTemplate.yml
+    - samTemplate.yml
+    - outputSamTemplate.yml

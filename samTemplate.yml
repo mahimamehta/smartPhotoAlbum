@@ -2,6 +2,10 @@ AWSTemplateFormatVersion: "2010-09-09"
 Transform: "AWS::Serverless-2016-10-31"
 Description: CD Demo Lambda
 Resources:
+  bucketphoto:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: bucketphoto
   searchphoto:
     Type: "AWS::Serverless::Function"
     Properties:
@@ -38,6 +42,13 @@ Resources:
       Role: "arn:aws:iam::497366965479:role/service-role/index-photos-role-19uvu9bz"
       Layers:
         - arn:aws:lambda:us-east-1:770693421928:layer:Klayers-p39-requests:2
+      Events:
+        S3Trigger:
+          Type: S3
+          Properties:
+            Bucket:
+              Ref: bucketphoto
+            Events: s3:ObjectCreated:Put
       Environment:
         Variables:
           REGION: us-east-1

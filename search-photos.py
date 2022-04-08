@@ -27,7 +27,7 @@ def getPhotoResults(keywords):
     q = {"query": {"bool": {"should": prepared_q}}}
     r = requests.post(endpoint, auth=("ES-Demo2", "ES-Demo2"),
                       headers=headers, data=json.dumps(q))
-    print(r.text)
+    # print(r.text)
     # r = {"took": 7, "timed_out": False, "_shards": {"total": 5, "successful": 5, "skipped": 0, "failed": 0}, "hits": {"total": {"value": 4, "relation": "eq"}, "max_score": 1.0, "hits": [{"_index": "photos", "_type": "photo", "_id": "5uWzhW4B9mNrwci-n6la", "_score": 1.0, "_source": {"objectKey": "uploaded_photos/gettyimages-91495990-170667a.jpg", "bucket": "photosb2", "createdTimestamp": "20191119-220611", "labels": ["Plant", "Tree", "Person", "Human", "Tree Trunk", "Outdoors"]}}, {"_index": "photos", "_type": "photo", "_id": "6OW5hW4B9mNrwci-Yqk8", "_score": 1.0, "_source": {"objectKey": "uploaded_photos/scott-eastwood.jpg", "bucket": "photosb2", "createdTimestamp": "20191119-221229", "labels": ["Person", "Human", "Canine", "Dog", "Pet", "Animal", "Mammal"]}}, {"_index": "photos", "_type": "photo", "_id": "5-W0hW4B9mNrwci-ZqlW", "_score": 1.0, "_source": {"objectKey": "uploaded_photos/pjimage-43-2.jpg", "bucket": "photosb2", "createdTimestamp": "20191119-220702", "labels": ["Tree", "Christmas Tree", "Ornament", "Plant", "Human", "Person"]}}, {"_index": "photos", "_type": "photo", "_id": "5eWzhW4B9mNrwci-V6mF", "_score": 1.0, "_source": {"objectKey": "uploaded_photos/pjimage-43-2.jpg", "bucket": "photosb2", "createdTimestamp": "20191119-220553", "labels": ["Tree", "Ornament", "Christmas Tree", "Plant", "Person", "Human"]}}]}}
 
     image_array = []

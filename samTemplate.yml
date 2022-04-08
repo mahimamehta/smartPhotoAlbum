@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: "2010-09-09"
 Transform: "AWS::Serverless-2016-10-31"
 Description: CD Demo Lambda
 Resources:
-  bucketphoto:
+  bucketphoto1:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: bucketphoto1
@@ -26,11 +26,6 @@ Resources:
           Properties:
             Path: /search
             Method: get
-        putAZsAPI:
-          Type: Api
-          Properties:
-            Path: /upload
-            Method: put
   indexphotos:
     Type: "AWS::Serverless::Function"
     Properties:
@@ -47,7 +42,7 @@ Resources:
           Type: S3
           Properties:
             Bucket:
-              Ref: bucketphoto
+              Ref: bucketphoto1
             Events: s3:ObjectCreated:Put
       Environment:
         Variables:

@@ -5,7 +5,7 @@ Resources:
   bucketphoto:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: bucketphoto
+      BucketName: bucketphoto1
   searchphoto:
     Type: "AWS::Serverless::Function"
     Properties:

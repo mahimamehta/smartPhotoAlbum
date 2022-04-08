@@ -4,7 +4,6 @@ phases:
     commands:
       - aws cloudformation package --template-file samTemplate.yml --s3-bucket lambda-bucket-code-pipeline --output-template-file outputSamTemplate.yml
 artifacts:
-  enable-symlinks: yes
   files:
-    - samTemplate.yml
-    - outputSamTemplate.yml
+    - mydir/samTemplate.yml
+    - mydir/outputSamTemplate.yml
